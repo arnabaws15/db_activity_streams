@@ -1,5 +1,4 @@
 from aws_cdk import (
-    # Duration,
     App,
     Stack,
     aws_ec2 as ec2,
@@ -7,7 +6,6 @@ from aws_cdk import (
     CfnOutput,
     RemovalPolicy,
     aws_iam as iam
-    # aws_sqs as sqs,
 )
 from aws_cdk.aws_opensearchservice import (
     Domain,
@@ -70,8 +68,6 @@ class DbActivityStreamsStack(Stack):
             cidr_mask=24            
         )
         
-        #CfnOutput(self, "Vpc", values=vpc.vpc_id)
-        
         # Configure the Aurora Postgres DB Cluster
         aurora_cluster = rds.DatabaseCluster(self, "Database",
             engine=rds.DatabaseClusterEngine.aurora_postgres(version=rds.AuroraPostgresEngineVersion.VER_15_2),
@@ -84,7 +80,6 @@ class DbActivityStreamsStack(Stack):
             storage_type=rds.DBClusterStorageType.AURORA_IOPT1
         )
         
-        #CfnOutput(self,'AuroraCluster', values=cluster.cluster_identifier)
         # Lets now provision a bastion host to connect to db
         bastion_host = ec2.BastionHostLinux(self, "BastionHost",
             vpc=vpc,
@@ -109,7 +104,6 @@ class DbActivityStreamsStack(Stack):
         slr = iam.CfnServiceLinkedRole(self, "Service Linked Role for OS",
             aws_service_name="es.amazonaws.com"
         )
-        #slr.apply_removal_policy(RemovalPolicy.DESTROY)
         
         domain = Domain(self, "DBActivityOSDomain",
             version=EngineVersion.OPENSEARCH_2_7,
@@ -130,7 +124,6 @@ class DbActivityStreamsStack(Stack):
             ),
             capacity=CapacityConfig(
                 data_nodes=3,
-               # master_nodes=1,
                 multi_az_with_standby_enabled=False
             )
         )
