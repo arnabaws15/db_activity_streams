@@ -78,4 +78,10 @@ command.
  * `cdk diff`        compare deployed stack with current state
  * `cdk docs`        open CDK documentation
 
+## Access Opensearch Dashboard
+Use the following command on your local pc.
+Ensure you have the latest version awscli and ssm sessionmanager installed
+
+`aws ssm start-session --target <instance-id> --document-name AWS-StartPortForwardingSessionToRemoteHost --parameters '{"portNumber": ["443"],"localPortNumber":["9200"],"host":["<domain-endpoint>"]}'`
+
 Enjoy!
