@@ -1,7 +1,25 @@
 
-# Welcome to your CDK Python project!
+# Welcome to your Monitor DB Activity Streams project!
 
-This is a blank project for CDK development with Python.
+## Pre-requisites:
+1. To work with the AWS CDK, you must have an AWS account and credentials and have installed Node.js and the AWS CDK Toolkit. 
+
+2. Python AWS CDK applications require Python 3.6 or later. If you don't already have it installed, download a compatible version 
+for your operating system at python.org.
+
+3. You need to have SSM session manager installed on your local machine to do port forwarding to access Opensearch Dashboard.
+Refer to this link: https://guide.aws.dev/articles/ARhePEPiT4SY2ezumYiqFVbQ/port-forwarding-with-aws-session-manager
+
+## Infrastructure
+This template will deploy the following components:
+1. VPC with 3 public & 3 private subnets (Need to do it in region where there is at least 3 AZs)
+2. Aurora Postgresql
+3. BastionHost
+4. Opensearch Cluster
+
+
+
+This is a project for CDK development with Python.
 
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
@@ -43,11 +61,16 @@ At this point you can now synthesize the CloudFormation template for this code.
 $ cdk synth
 ```
 
+Next, deploy!
+```
+$ cdk deploy
+```
+
 To add additional dependencies, for example other CDK libraries, just add
 them to your `setup.py` file and rerun the `pip install -r requirements.txt`
 command.
 
-## Useful commands
+## Other Useful commands
 
  * `cdk ls`          list all stacks in the app
  * `cdk synth`       emits the synthesized CloudFormation template
